@@ -7,3 +7,7 @@ export interface User {
   edad: number;
   perfil: Profile;
 } 
+
+export interface RequestWithUser extends Request {
+  user: User;
+}
