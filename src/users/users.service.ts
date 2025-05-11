@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { User } from './interfaces/user.interface';
 import { CreateUserDto } from './dto/create-user.dto';
 
@@ -34,5 +34,44 @@ export class UsersService {
         user.perfil.nombrePerfil.toLowerCase().includes(searchLower),
     );
   }
+
+  findOne(id: number): User {
+    const user = this.users.find(user => user.id === id);
+    if (!user) {
+      throw new NotFoundException(`Usuario con ID ${id} no encontrado`);
+    }
+    return user;
+  }
+
+  update(id: number, updateUserDto: Partial<CreateUserDto>): User {
+    const userIndex = this.users.findIndex(user => user.id === id);
+    if (userIndex === -1) {
+      throw new NotFoundException(`Usuario con ID ${id} no encontrado`);
+    }
+  
+    const existingUser = this.users[userIndex];
+
+    const updatedUser: User = {
+      ...existingUser,
+      ...updateUserDto,
+      perfil: {
+        ...(existingUser.perfil || {}), // Asegura que perfil existe
+        ...(updateUserDto.perfil || {}),
+      },
+    };
+  
+    this.users[userIndex] = updatedUser;
+    return updatedUser;
+  }
+  
+
+  remove(id: number): void {
+    const userIndex = this.users.findIndex(user => user.id === id);
+    if (userIndex === -1) {
+      throw new NotFoundException(`Usuario con ID ${id} no encontrado`);
+    }
+    this.users.splice(userIndex, 1);
+  }
+
 
 } 
