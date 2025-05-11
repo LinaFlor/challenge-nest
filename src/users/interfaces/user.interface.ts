@@ -9,5 +9,5 @@ export interface User {
 } 
 
 export interface RequestWithUser extends Request {
-  user: User;
+  user: User | undefined;
 }
