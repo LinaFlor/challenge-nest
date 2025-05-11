@@ -13,7 +13,7 @@ export class AuthGuard implements CanActivate {
       nombre: 'Usuario de prueba',
       correoElectronico: 'test@test.com',
       edad: 20,
-      perfil: { nombrePerfil: 'user', id: 1 }
+      perfil: { nombrePerfil: 'user', codigo: 'USR001', id: 1 }
     };
 
     return true; // siempre retorna true para simular la autenticacion
