@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, BadRequestException} from '@nestjs/common';
 import { User } from './interfaces/user.interface';
 import { CreateUserDto } from './dto/create-user.dto';
 
@@ -8,6 +8,14 @@ export class UsersService {
   private nextId = 1;
 
   create(createUserDto: CreateUserDto): User {
+
+    //primero verificamos que el email no este ya registrado
+    const emailLower = createUserDto.correoElectronico.toLowerCase(); 
+    const emailExists = this.users.some(user => user.correoElectronico.toLowerCase() === emailLower); 
+
+    if (emailExists) {
+      throw new BadRequestException(`El correo electrónico ${createUserDto.correoElectronico} ya está en uso.`)
+    }
 
     const newUser: User = {
       id: this.nextId++,
@@ -23,13 +31,15 @@ export class UsersService {
   }
 
   findAll(searchText?: string): User[] {
+    //si no se proporciona un parametro de busqueda, se devuelve todos los usuarios
     if (!searchText) {
       return this.users;
     }
+    //convertimos el parametro de busqueda a minusculas
     const searchLower = searchText.toLowerCase();
     return this.users.filter(
       user =>
-        user.nombre.toLowerCase().includes(searchLower) ||
+        user.nombre.toLowerCase().includes(searchLower) ||  //pasamos todas las propiedades a minusculas para asegurar que la busqueda sea correcta
         user.correoElectronico.toLowerCase().includes(searchLower) ||
         user.perfil.nombrePerfil.toLowerCase().includes(searchLower),
     );
@@ -45,6 +55,7 @@ export class UsersService {
 
   update(id: number, updateUserDto: Partial<CreateUserDto>): User {
     const userIndex = this.users.findIndex(user => user.id === id);
+
     if (userIndex === -1) {
       throw new NotFoundException(`Usuario con ID ${id} no encontrado`);
     }
@@ -70,6 +81,8 @@ export class UsersService {
     if (userIndex === -1) {
       throw new NotFoundException(`Usuario con ID ${id} no encontrado`);
     }
+
+    //usamos el metodo splice para eliminar el usuario de la lista, modificando el array original en memoria
     this.users.splice(userIndex, 1);
   }
 
