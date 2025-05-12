@@ -1,8 +1,8 @@
 {
   "name": "challenge-nest",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "API para gestionar usuarios",
+  "author": "lina-dev",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
