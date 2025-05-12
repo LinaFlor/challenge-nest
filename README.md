@@ -34,7 +34,7 @@ Esta es una API REST construida con NestJS como parte de un challenge técnico. 
 - `POST /users` → Crear un nuevo usuario.
 - `GET /users` → Obtener lista de usuarios (incluye filtro por texto opcional).
 - `GET /users/:id` → Obtener un usuario por su ID.
-- `PUT /users/:id` → Actualizar usuario por su ID.
+- `PATCH /users/:id` → Actualizar usuario por su ID.
 - `DELETE /users/:id` → Eliminar usuario por su ID.
 
 ## 🔐 Autenticación y Autorización
