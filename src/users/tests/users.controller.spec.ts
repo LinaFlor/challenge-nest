@@ -103,7 +103,7 @@ describe('UsersController', () => {
   
         jest.spyOn(usersService, 'findOne').mockReturnValue(mockedUser);
   
-        const result = usersController.findOne('1');
+        const result = usersController.findOne(1);
         expect(result).toEqual(mockedUser);
         // eslint-disable-next-line @typescript-eslint/unbound-method
         expect(usersService.findOne).toHaveBeenCalledWith(1);
@@ -114,7 +114,7 @@ describe('UsersController', () => {
         throw new NotFoundException('User not found');
       });
   
-      expect(() => usersController.findOne('999')).toThrow(NotFoundException);
+      expect(() => usersController.findOne(999)).toThrow(NotFoundException);
     });
   });
   
@@ -132,7 +132,7 @@ describe('UsersController', () => {
   
       jest.spyOn(usersService, 'update').mockReturnValue(expectedUser);
   
-      const result = usersController.update('1', updateUserDto);
+      const result = usersController.update(1, updateUserDto);
       
       expect(result).toEqual(expectedUser);
       // eslint-disable-next-line @typescript-eslint/unbound-method
@@ -143,7 +143,7 @@ describe('UsersController', () => {
 
   describe('remove', () => {
     it('should remove a user', async () => {
-      await expect(usersController.remove('1')).resolves.not.toThrow();
+      await expect(usersController.remove(1)).resolves.not.toThrow();
     });
   
     it('should throw an error if user is not found', () => {
@@ -151,7 +151,7 @@ describe('UsersController', () => {
         throw new NotFoundException('Usuario no encontrado');
       });
   
-      expect(() => usersController.remove('999')).toThrow(NotFoundException);
+      expect(() => usersController.remove(999)).toThrow(NotFoundException);
     });
   });
   

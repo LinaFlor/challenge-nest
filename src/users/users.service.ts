@@ -9,14 +9,6 @@ export class UsersService {
   private nextPerfilId = 1;
 
   create(createUserDto: CreateUserDto): User {
-    // verificamos si los campos requeridos están presentes
-    const requiredFields = ['nombre', 'correoElectronico', 'edad', 'perfil'];
-    const missingFields = requiredFields.filter(field => !createUserDto[field]);
-
-    if (missingFields.length > 0) {
-      throw new BadRequestException(`Faltan campos requeridos: ${missingFields.join(', ')}`);
-    }
-
     // verificamos que el email no este ya registrado
     const emailLower = createUserDto.correoElectronico.toLowerCase(); 
     const emailExists = this.users.some(user => user.correoElectronico.toLowerCase() === emailLower); 

@@ -35,20 +35,6 @@ describe('UsersService', () => {
       });
     });
 
-    it('should throw an error if any required field is missing', () => {
-        const createUserDto = {
-          // El campo 'nombre' está ausente
-          correoElectronico: 'juan.perez@example.com',
-          edad: 30,
-          perfil: { nombrePerfil: 'user', codigo: 'USR001', id: 1 },
-        };
-    
-        //@ts-expect-error - estamos forzando la falta del campo nombre
-        expect(() => usersService.create(createUserDto)).toThrow(
-          new BadRequestException('Faltan campos requeridos: nombre')
-        );
-      });
-  
     it('should throw an error if the email is already in use', () => {
   
       usersService.create(mockedUser);

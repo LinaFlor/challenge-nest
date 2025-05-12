@@ -37,8 +37,8 @@ export class UsersController {
   @ApiParam({ name: 'id', type: Number, description: 'ID del usuario' })
   @ApiResponse({ status: 200, description: 'Usuario encontrado exitosamente.' })
   @ApiResponse({ status: 404, description: 'No se encontró el usuario.' })
-  findOne(@Param('id') id: string) {
-    return this.usersService.findOne(+id);
+  findOne(@Param('id') id: number) {
+    return this.usersService.findOne(id);
   }
 
   
@@ -51,8 +51,8 @@ export class UsersController {
   @ApiResponse({ status: 401, description: 'No autorizado.' })
   @ApiResponse({ status: 403, description: 'Acceso denegado: permisos insuficientes.' })
   @ApiResponse({ status: 404, description: 'No se encontró el usuario.' })
-  update(@Param('id') id: string, @Body() updateUserDto: Partial<CreateUserDto>) {
-    return this.usersService.update(+id, updateUserDto);
+  update(@Param('id') id: number, @Body() updateUserDto: Partial<CreateUserDto>) {
+    return this.usersService.update(id, updateUserDto);
   }
 
   
@@ -62,10 +62,10 @@ export class UsersController {
   @ApiParam({ name: 'id', type: Number, description: 'ID del usuario' })
   @ApiResponse({ status: 200, description: 'Usuario eliminado exitosamente.' })
   @ApiResponse({ status: 401, description: 'No autorizado.' })
-  @ApiResponse({ status: 403, description: 'Permiso denegado.' })
+  @ApiResponse({ status: 403, description: 'Acceso denegado: permisos insuficientes.' })
   @ApiResponse({ status: 404, description: 'No se encontró el usuario.' })
-  remove(@Param('id') id: string) {
-    return this.usersService.remove(+id);
+  remove(@Param('id') id: number) {
+    return this.usersService.remove(id);
   }
 
 
