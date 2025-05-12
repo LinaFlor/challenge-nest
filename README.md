@@ -29,6 +29,14 @@ Esta es una API REST construida con NestJS como parte de un challenge técnico. 
 - `src/auth`: Simulación de roles y autenticación mediante guards.
 - `test`: Pruebas unitarias y e2e.
 
+## 🔗 Endpoints Disponibles
+
+- `POST /users` → Crear un nuevo usuario.
+- `GET /users` → Obtener lista de usuarios (incluye filtro por texto opcional).
+- `GET /users/:id` → Obtener un usuario por su ID.
+- `PUT /users/:id` → Actualizar usuario por su ID.
+- `DELETE /users/:id` → Eliminar usuario por su ID.
+
 ## 🔐 Autenticación y Autorización
 
 La API implementa una simulación de autenticación con guards que verifican roles (por ejemplo: `'admin'`, `'user'`). No se utiliza JWT, pero se demuestra el manejo de permisos a nivel de rutas.
